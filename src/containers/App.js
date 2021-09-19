@@ -1,13 +1,17 @@
 import { useState } from "react"
+
 import Input from "../components/Input";
 import Textarea from "../components/ArrayTextArea";
+import Button from "../components/Button";
 
 export default function App() {
-  const [fields, setFields] = useState({
+
+  const defaultFields = {
     label: '',
     defaultValue: '',
     choices: [],
-  });
+  }
+  const [fields, setFields] = useState(defaultFields);
 
   const setLabel = (event) => {
     setFields({...fields, label: event.target.value});
@@ -25,9 +29,11 @@ export default function App() {
     setFields({...fields, choices: fields.choices.sort()});
   }
 
-  const stringChoices = fields.choices.join("\n");
+  const resetFields = () => {
+    setFields(defaultFields)
+  };
 
-  console.log(fields.choices)
+  const stringChoices = fields.choices.join("\n");
 
   return (
     <div className="App">
@@ -37,7 +43,8 @@ export default function App() {
         <Input label="Label" onChange={setLabel} value={fields.label} />
         <Input label="Default Value" onChange={setDefaultValue} value={fields.defaultValue} />
         <Textarea label="Choices" onChange={setChoices} value={stringChoices}/>
-        <button onClick={arrangeAlphabetical}>Arrange alphabetical</button>
+        <Button onClick={arrangeAlphabetical} label="Display Choices Alphabetical"/>
+        <Button onClick={resetFields} label="Cancel" />
     </div>
   );
 }
