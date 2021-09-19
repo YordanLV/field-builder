@@ -1,15 +1,7 @@
-import { useState } from 'react';
-
-export default function Input() {
-  const [value, setValue] = useState('');
-
-  const onChange = (event) => {
-    setValue(event.target.value);
-  };
-
+export default function Input({label, value, onChange}) {
   return (
     <div>
-      <label>Input value:</label>
+      <label>{label}</label>
       <input value={value} onChange={onChange} />
     </div>
   );
