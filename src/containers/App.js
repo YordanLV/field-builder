@@ -11,10 +11,15 @@ export default function App() {
     defaultValue: '',
     choices: [],
   }
+
+  const OPTIONS_LIMIT= 50;
+
   const [fields, setFields] = useState(defaultFields);
+  const [error, setError] = useState('');
 
   const setLabel = (event) => {
-    setFields({...fields, label: event.target.value});
+    const value = event.target.value;
+    setFields({...fields, label: value});
   }
 
   const setDefaultValue = (event) => {
@@ -33,6 +38,23 @@ export default function App() {
     setFields(defaultFields)
   };
 
+  const checkForDuplicates = (array) => {
+    return new Set(array).size !== array.length
+  }
+
+  const validation = () => {
+    if (fields.label === '') {
+      setError("Label is required!")
+    } else if (checkForDuplicates(fields.choices)){
+      setError("An option is duplicated!")
+    } else if(fields.choices.length >= OPTIONS_LIMIT) {
+      setError(`Options should not exceed more than ${OPTIONS_LIMIT}`)
+    }
+  }
+  const submit = () => {
+    validation();
+  }
+
   const stringChoices = fields.choices.join("\n");
 
   return (
@@ -40,11 +62,13 @@ export default function App() {
       <header className="App-header">
         <h1>Field Builder</h1>
       </header>
+        {error}
         <Input label="Label" onChange={setLabel} value={fields.label} />
         <Input label="Default Value" onChange={setDefaultValue} value={fields.defaultValue} />
         <Textarea label="Choices" onChange={setChoices} value={stringChoices}/>
         <Button onClick={arrangeAlphabetical} label="Display Choices Alphabetical"/>
         <Button onClick={resetFields} label="Cancel" />
+        <Button onClick={submit} label="Submit" />
     </div>
   );
 }
