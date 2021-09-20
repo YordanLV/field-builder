@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 import Input from "../components/Input";
@@ -16,22 +16,6 @@ export default function App() {
 
   const [fields, setFields] = useState(defaultFields);
   const [error, setError] = useState("");
-
-  const saveLocalFields = () => {
-    localStorage.setItem("fields", JSON.stringify(fields));
-  };
-  const getSaveLocalFields = useCallback(() => {
-    if (localStorage.getItem("fields") === null) {
-      localStorage.setItem("fields", JSON.stringify(fields));
-    } else {
-      let fieldsLocal = JSON.parse(localStorage.getItem("fields"));
-      setFields(fieldsLocal);
-    }
-  }, [fields]);
-
-  useEffect(() => {
-    getSaveLocalFields();
-  }, [getSaveLocalFields]);
 
   const setLabel = (event) => {
     const value = event.target.value;
@@ -108,7 +92,7 @@ export default function App() {
         onChange={setDefaultValue}
         value={fields.defaultValue}
       />
-      <Textarea label="Choices" onChange={setChoices} value={stringChoices} />
+      <Textarea label="Choices" onChange={setChoices} value={stringChoices} arrayValues={fields.choices} />
       <Button
         label="Display Choices Alphabetical"
         onClick={arrangeAlphabetical}
