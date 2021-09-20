@@ -2,12 +2,16 @@ import { useState } from "react";
 import axios from "axios";
 
 import Input from "../components/Input";
+import Card from "../components/Card";
+import { TwoColGrid } from "../components/TwoColGrid";
+import Checkbox from "../components/Checkbox";
 import Textarea from "../components/ArrayTextArea";
 import Button from "../components/Button";
 
 export default function App() {
   const defaultFields = {
     label: "",
+    multiSelect: true,
     defaultValue: "",
     choices: [],
   };
@@ -31,6 +35,10 @@ export default function App() {
     if (!fields.choices.includes(defaultValue)) {
       setFields({ ...fields, choices: [...fields.choices, defaultValue] });
     }
+  };
+
+  const toggleCheckbox = () => {
+    setFields({ ...fields, multiSelect: !fields.multiSelect });
   };
 
   const setChoices = (event) => {
@@ -81,24 +89,40 @@ export default function App() {
   const stringChoices = fields.choices.join("\n");
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Field Builder</h1>
-      </header>
+    <Card title="Field Builder">
       {error}
       <Input label="Label" onChange={setLabel} value={fields.label} />
+      <Checkbox
+        label="Type"
+        onChange={toggleCheckbox}
+        checked={fields.multiSelect}
+      />
       <Input
         label="Default Value"
         onChange={setDefaultValue}
         value={fields.defaultValue}
       />
-      <Textarea label="Choices" onChange={setChoices} value={stringChoices} arrayValues={fields.choices} />
-      <Button
-        label="Display Choices Alphabetical"
-        onClick={arrangeAlphabetical}
+      <Textarea
+        label="Choices"
+        onChange={setChoices}
+        value={stringChoices}
+        arrayValues={fields.choices}
       />
-      <Button onClick={resetFields} label="Cancel" />
-      <Button onClick={handleSubmit} label="Submit" />
-    </div>
+      <TwoColGrid>
+        <div/>
+        <div>
+          <div style={{marginBottom: '1rem'}}>
+            <Button
+              label="Display Choices Alphabetical"
+              onClick={arrangeAlphabetical}
+              tertiary
+            />
+          </div>
+          <Button onClick={handleSubmit} label="Save Changes" />
+          <span style={{ padding: "0 1rem" }}>or</span>
+          <Button onClick={resetFields} label="Cancel" secondary />
+        </div>
+      </TwoColGrid>
+    </Card>
   );
 }
