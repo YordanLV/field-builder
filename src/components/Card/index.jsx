@@ -6,7 +6,12 @@ const StyledCard = styled.div`
   left: 50%;
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -45%);
+  @media only screen and (max-width: 56.25rem) {
+    position: relative;
+    transform: initial;
+    left: 0%;
+  }
 `;
 
 const CardTitle = styled.h3`
@@ -19,6 +24,9 @@ const CardTitle = styled.h3`
 
 const CardWrapper = styled.div`
   padding: 0 3.75rem 5rem;
+  @media only screen and (max-width: 56.25rem) {
+    padding: 0 1.5rem 2rem;
+  }
 `;
 
 export default function Card({ title, children }) {
