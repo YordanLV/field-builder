@@ -1,5 +1,6 @@
+import styled from "styled-components";
+
 import { TwoColGrid } from "../TwoColGrid";
-import styled from 'styled-components';
 
 const StyledCheckbox = styled.input`
   margin: 0 0.5rem;
