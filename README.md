@@ -4,7 +4,9 @@
 
 2. There is a validation in place.
 [x] The Label field is required.
+
 [x] Duplicates choices are not allowed.
+
 [x] There cannot be more than 50 choices total.
 
 3. If the default value is not one of the choices, it is added to the list of choices when the field is saved.
@@ -13,7 +15,9 @@
 
 ## Bonus tasks
 [x] Very basic responsiveness.
+
 [x] Localstorage implemented to solve issues if accidental closing of window.
+
 [x] All components were created with possibility of reusability.
 
 
