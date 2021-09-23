@@ -15,7 +15,7 @@ const StyledButton = styled.button`
       background: white;
       color: #ff0004;
     `}
-    ${(props) =>
+  ${(props) =>
     props.tertiary &&
     css`
       background: white;
@@ -26,5 +26,9 @@ const StyledButton = styled.button`
 `;
 
 export default function Button({ label, secondary, tertiary, onClick }) {
-  return <StyledButton onClick={onClick} secondary={secondary} tertiary={tertiary}>{label}</StyledButton>;
+  return (
+    <StyledButton onClick={onClick} secondary={secondary} tertiary={tertiary}>
+      {label}
+    </StyledButton>
+  );
 }

@@ -18,7 +18,8 @@ export default function App() {
     choices: [],
   };
 
-  const initialState = () => JSON.parse(localStorage.getItem("fields")) || defaultFields;
+  const initialState = () =>
+    JSON.parse(localStorage.getItem("fields")) || defaultFields;
 
   const OPTIONS_LIMIT = 50;
 
@@ -27,7 +28,7 @@ export default function App() {
   const [successMessage, setSuccessMessage] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('fields', JSON.stringify(fields));
+    localStorage.setItem("fields", JSON.stringify(fields));
   }, [fields]);
 
   const setLabel = (event) => {
@@ -37,14 +38,17 @@ export default function App() {
   };
 
   const setDefaultValue = (event) => {
-    const updatedFields = { ...fields, defaultValue: event.target.value }
+    const updatedFields = { ...fields, defaultValue: event.target.value };
     setFields(updatedFields);
   };
 
   const addDefaultValue = () => {
     const { defaultValue } = fields;
     if (!fields.choices.includes(defaultValue)) {
-      const updatedFields = { ...fields, choices: [...fields.choices, defaultValue] };
+      const updatedFields = {
+        ...fields,
+        choices: [...fields.choices, defaultValue],
+      };
       setFields(updatedFields);
     }
   };
@@ -55,7 +59,10 @@ export default function App() {
   };
 
   const setChoices = (event) => {
-    const updatedFields = { ...fields, choices: event.target.value.split(/\n/) };
+    const updatedFields = {
+      ...fields,
+      choices: event.target.value.split(/\n/),
+    };
     setFields(updatedFields);
   };
 

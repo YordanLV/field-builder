@@ -20,7 +20,6 @@ const Textarea = styled.textarea`
   padding: 0.5rem 1rem;
 `;
 
-
 export default function ArrayTextArea({ label, value, onChange }) {
   return (
     <TwoColGrid>
