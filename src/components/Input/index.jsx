@@ -5,10 +5,10 @@ import { TwoColGrid } from "../TwoColGrid";
 const StyledInput = styled.input`
     width: 100%;
     border: none; 
-    border:solid 1px #757575;
-    border-radius: 5px;
-    padding: 0 0.5rem;
-    height: 30px;
+    border:solid 0.0625rem #757575;
+    border-radius: 0.3125rem;
+    padding: 0 1rem;
+    height: 1.875rem;
 `;
 
 export default function Input({ label, value, onChange }) {

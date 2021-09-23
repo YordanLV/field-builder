@@ -18,7 +18,7 @@ const CardTitle = styled.h3`
 `;
 
 const CardWrapper = styled.div`
-  padding: 0 60px 80px;
+  padding: 0 3.75rem 5rem;
 `;
 
 export default function Card({ title, children }) {

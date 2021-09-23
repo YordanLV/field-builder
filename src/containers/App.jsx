@@ -3,6 +3,8 @@ import axios from "axios";
 
 import Input from "../components/Input";
 import Card from "../components/Card";
+import SuccessMessage from "../components/Success";
+import Error from "../components/Error";
 import { TwoColGrid } from "../components/TwoColGrid";
 import Checkbox from "../components/Checkbox";
 import Textarea from "../components/ArrayTextArea";
@@ -20,6 +22,7 @@ export default function App() {
 
   const [fields, setFields] = useState(defaultFields);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const setLabel = (event) => {
     const value = event.target.value;
@@ -82,6 +85,8 @@ export default function App() {
         .then((res) => {
           console.log(res);
           console.log(res.data);
+          setError("");
+          setSuccessMessage(true);
         });
     }
   };
@@ -89,40 +94,47 @@ export default function App() {
   const stringChoices = fields.choices.join("\n");
 
   return (
-    <Card title="Field Builder">
-      {error}
-      <Input label="Label" onChange={setLabel} value={fields.label} />
-      <Checkbox
-        label="Type"
-        onChange={toggleCheckbox}
-        checked={fields.multiSelect}
-      />
-      <Input
-        label="Default Value"
-        onChange={setDefaultValue}
-        value={fields.defaultValue}
-      />
-      <Textarea
-        label="Choices"
-        onChange={setChoices}
-        value={stringChoices}
-        arrayValues={fields.choices}
-      />
-      <TwoColGrid>
-        <div/>
-        <div>
-          <div style={{marginBottom: '1rem'}}>
-            <Button
-              label="Display Choices Alphabetical"
-              onClick={arrangeAlphabetical}
-              tertiary
-            />
+    <form>
+      <Card title="Field Builder">
+        {error && <Error>{error}</Error>}
+        {successMessage && (
+          <SuccessMessage>
+            Successfully Submitted (Check Console)
+          </SuccessMessage>
+        )}
+        <Input label="Label" onChange={setLabel} value={fields.label} />
+        <Checkbox
+          label="Type"
+          onChange={toggleCheckbox}
+          checked={fields.multiSelect}
+        />
+        <Input
+          label="Default Value"
+          onChange={setDefaultValue}
+          value={fields.defaultValue}
+        />
+        <Textarea
+          label="Choices"
+          onChange={setChoices}
+          value={stringChoices}
+          arrayValues={fields.choices}
+        />
+        <TwoColGrid>
+          <div />
+          <div>
+            <div style={{ marginBottom: "1rem" }}>
+              <Button
+                label="Display Choices Alphabetical"
+                onClick={arrangeAlphabetical}
+                tertiary
+              />
+            </div>
+            <Button onClick={handleSubmit} label="Save Changes" />
+            <span style={{ padding: "0 1rem" }}>or</span>
+            <Button onClick={resetFields} label="Cancel" secondary />
           </div>
-          <Button onClick={handleSubmit} label="Save Changes" />
-          <span style={{ padding: "0 1rem" }}>or</span>
-          <Button onClick={resetFields} label="Cancel" secondary />
-        </div>
-      </TwoColGrid>
-    </Card>
+        </TwoColGrid>
+      </Card>
+    </form>
   );
 }

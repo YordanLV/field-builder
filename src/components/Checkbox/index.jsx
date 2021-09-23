@@ -1,4 +1,14 @@
 import { TwoColGrid } from "../TwoColGrid";
+import styled from 'styled-components';
+
+const StyledCheckbox = styled.input`
+  margin: 0 0.5rem;
+`;
+
+const RequiredText = styled.span`
+  color: #646464;
+  font-weight: 600;
+`;
 
 export default function Checkbox({ checked, label, onChange }) {
   return (
@@ -8,8 +18,8 @@ export default function Checkbox({ checked, label, onChange }) {
       </div>
       <div>
         <span>Multi-select</span>
-        <input type="checkbox" checked={checked} onChange={onChange} />
-        <span>A value is required</span>
+        <StyledCheckbox type="checkbox" checked={checked} onChange={onChange} />
+        <RequiredText>A Value is required</RequiredText>
       </div>
     </TwoColGrid>
   );
