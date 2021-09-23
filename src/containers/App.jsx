@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import Input from "../components/Input";
@@ -18,38 +18,50 @@ export default function App() {
     choices: [],
   };
 
+  const initialState = () => JSON.parse(localStorage.getItem("fields")) || defaultFields;
+
   const OPTIONS_LIMIT = 50;
 
-  const [fields, setFields] = useState(defaultFields);
+  const [fields, setFields] = useState(initialState);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState(false);
 
+  useEffect(() => {
+    localStorage.setItem('fields', JSON.stringify(fields));
+  }, [fields]);
+
   const setLabel = (event) => {
     const value = event.target.value;
-    setFields({ ...fields, label: value });
+    const updatedFields = { ...fields, label: value };
+    setFields(updatedFields);
   };
 
   const setDefaultValue = (event) => {
-    setFields({ ...fields, defaultValue: event.target.value });
+    const updatedFields = { ...fields, defaultValue: event.target.value }
+    setFields(updatedFields);
   };
 
   const addDefaultValue = () => {
     const { defaultValue } = fields;
     if (!fields.choices.includes(defaultValue)) {
-      setFields({ ...fields, choices: [...fields.choices, defaultValue] });
+      const updatedFields = { ...fields, choices: [...fields.choices, defaultValue] };
+      setFields(updatedFields);
     }
   };
 
   const toggleCheckbox = () => {
-    setFields({ ...fields, multiSelect: !fields.multiSelect });
+    const updatedFields = { ...fields, multiSelect: !fields.multiSelect };
+    setFields(updatedFields);
   };
 
   const setChoices = (event) => {
-    setFields({ ...fields, choices: event.target.value.split(/\n/) });
+    const updatedFields = { ...fields, choices: event.target.value.split(/\n/) };
+    setFields(updatedFields);
   };
 
   const arrangeAlphabetical = () => {
-    setFields({ ...fields, choices: fields.choices.sort() });
+    const updatedFields = { ...fields, choices: fields.choices.sort() };
+    setFields(updatedFields);
   };
 
   const resetFields = () => {
@@ -94,7 +106,7 @@ export default function App() {
   const stringChoices = fields.choices.join("\n");
 
   return (
-    <form>
+    <>
       <Card title="Field Builder">
         {error && <Error>{error}</Error>}
         {successMessage && (
@@ -135,6 +147,6 @@ export default function App() {
           </div>
         </TwoColGrid>
       </Card>
-    </form>
+    </>
   );
 }
