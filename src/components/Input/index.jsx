@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styled from "styled-components";
 
 import { TwoColGrid } from "../TwoColGrid";
@@ -11,7 +12,7 @@ const StyledInput = styled.input`
   height: 1.875rem;
 `;
 
-export default function Input({ label, value, onChange }) {
+function Input({ label, value, onChange }) {
   return (
     <TwoColGrid>
       <div>
@@ -23,3 +24,5 @@ export default function Input({ label, value, onChange }) {
     </TwoColGrid>
   );
 }
+
+export default memo(Input);

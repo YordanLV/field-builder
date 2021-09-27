@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import styled from "styled-components";
 
 import { TwoColGrid } from "../TwoColGrid";
@@ -11,7 +12,7 @@ const RequiredText = styled.span`
   font-weight: 600;
 `;
 
-export default function Checkbox({ checked, label, onChange }) {
+function Checkbox({ checked, label, onChange }) {
   return (
     <TwoColGrid>
       <div>
@@ -25,3 +26,5 @@ export default function Checkbox({ checked, label, onChange }) {
     </TwoColGrid>
   );
 }
+
+export default memo(Checkbox);
